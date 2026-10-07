@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AM Activator — Glassmorphism Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --glass-bg: rgba(20, 20, 25, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.2);
+  --text-main: #ffffff;
+  --text-dim: #9ca3af;
+  --acc: #10b981; /* Premium Green */
+  --acc-glow: rgba(16, 185, 129, 0.4);
+  --red: #ef4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background-color: #050505;
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated Abstract Background for Glassmorphism */
+.blob {
+  position: fixed;
+  filter: blur(90px);
+  z-index: -1;
+  border-radius: 50%;
+  animation: float 10s infinite ease-in-out alternate;
+}
+.blob-1 { top: -10%; left: -10%; width: 350px; height: 350px; background: rgba(94, 194, 105, 0.4); }
+.blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: rgba(59, 130, 246, 0.3); }
+.blob-3 { top: 40%; left: 40%; width: 250px; height: 250px; background: rgba(139, 92, 246, 0.2); animation-delay: -5s; }
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, 50px) scale(1.1); }
+}
+
+.wrap {
+  width: 100%;
+  max-width: 440px;
+  z-index: 10;
+}
+
+/* Glass Panel Main */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 32px 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+header { text-align: center; margin-bottom: 28px; }
+header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+header h1 span { color: var(--text-dim); font-weight: 400; font-size: 16px; }
+header p { color: var(--text-dim); font-size: 13px; }
+
+/* Elegant Steps - Inspired by Reference */
+.steps {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 32px;
+  padding: 0 10px;
+}
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 30px;
+  right: 30px;
+  height: 2px;
+  background: var(--glass-border);
+  z-index: 0;
+}
+.step {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+.step-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #111;
+  border: 2px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+  font-size: 13px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.step.on .step-circle {
+  background: #fff; color: #000; border-color: #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+.step.on { color: #fff; }
+.step.done .step-circle {
+  background: var(--acc); color: #000; border-color: var(--acc);
+  box-shadow: 0 0 20px var(--acc-glow);
+}
+
+/* Stats Mini Glass Cards */
+.stats-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-box {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 12px 16px;
+  text-align: center;
+}
+.stat-title { color: var(--text-dim); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 4px; font-weight: 600;}
+.stat-val { font-size: 20px; font-weight: 700; }
+.stat-val.highlight { color: var(--acc); text-shadow: 0 0 10px var(--acc-glow); }
+
+/* Forms & Inputs */
+.panel h2 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.panel .hint { color: var(--text-dim); font-size: 12.5px; margin-bottom: 20px; line-height: 1.5; }
+label { display: block; color: var(--text-dim); font-size: 11px; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 14px 16px;
+  outline: none;
+  transition: all 0.3s;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+input:focus { border-color: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1); background: rgba(0, 0, 0, 0.4); }
+
+/* Glossy Buttons */
+button {
+  width: 100%;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+}
+button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25); }
+button:active:not(:disabled) { transform: translateY(1px); }
+button.sec {
+  background: rgba(255, 255, 255, 0.05); color: var(--text-main);
+  border: 1px solid var(--glass-border); box-shadow: none;
+}
+button.sec:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Messages */
+.msg { padding: 12px 16px; border-radius: 10px; font-size: 13px; margin-top: 16px; display: none; font-weight: 500; animation: fadeIn 0.3s ease; }
+.msg.err { display: block; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; }
+.msg.ok { display: block; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+
+/* Data Output area */
+.data-card { background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.kv { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+.kv:last-child { border-bottom: none; }
+.kv b { color: var(--text-dim); font-weight: 500; }
+.kv span { color: var(--text-main); font-weight: 600; text-align: right; word-break: break-all; max-width: 65%; }
+
+.tok {
+  background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border); border-radius: 10px;
+  padding: 12px; font-family: ui-monospace, monospace; font-size: 11px; word-break: break-all;
+  color: var(--text-dim); max-height: 80px; overflow-y: auto; margin-bottom: 12px;
+}
+
+.action-row { display: flex; gap: 12px; }
+.action-row button { margin-top: 0; }
+
+footer { margin-top: 32px; color: #555; font-size: 11px; text-align: center; font-weight: 500; }
+.hide { display: none !important; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="wrap">
+  <div class="glass-panel">
+    <header>
+      <h1>am <span>/</span> activate</h1>
+      <p>Premium Magic Link Activation</p>
+    </header>
+
+    <div class="steps">
+      <div id="n1" class="step on"><div class="step-circle">1</div>Email</div>
+      <div id="n2" class="step"><div class="step-circle">2</div>Verify</div>
+      <div id="n3" class="step"><div class="step-circle">3</div>Done</div>
+    </div>
+
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-title">Total Aktivasi</div>
+        <div class="stat-val highlight" id="st-total">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-title">Hari Ini</div>
+        <div class="stat-val" id="st-today">-</div>
+      </div>
+    </div>
+
+    <!-- Panel 1: Email -->
+    <div class="panel" id="p1">
+      <h2>Masukkan Email</h2>
+      <p class="hint">Link login sakti akan dikirim langsung ke email Anda tanpa memerlukan password.</p>
+      <label>Alamat Email</label>
+      <input id="em" type="email" placeholder="nama@email.com" autocomplete="off">
+      <button id="b1">Kirim Magic Link</button>
+      <div id="m1" class="msg"></div>
+    </div>
+
+    <!-- Panel 2: Verifikasi -->
+    <div class="panel hide" id="p2">
+      <h2>Verifikasi Link</h2>
+      <p class="hint">Link telah meluncur ke <b id="w-em" style="color:#fff">-</b>. Salin link dari email dan tempel di bawah.</p>
+      <label>Link Verifikasi / oobCode</label>
+      <input id="lk" type="text" placeholder="https://..." autocomplete="off">
+      <div class="action-row">
+        <button id="b2" class="sec" style="flex: 0.5;">Kembali</button>
+        <button id="b3" style="flex: 1;">Aktivasi</button>
+      </div>
+      <div id="m2" class="msg"></div>
+    </div>
+
+    <!-- Panel 3: Sukses -->
+    <div class="panel hide" id="p3">
+      <h2 style="color: var(--acc); text-shadow: 0 0 15px var(--acc-glow);">✨ Premium Aktif!</h2>
+      <p class="hint">Aktivasi berhasil. Detail akun Anda ada di bawah ini.</p>
+      
+      <div class="data-card">
+        <div class="kv"><b>Email</b><span id="r-em">-</span></div>
+        <div class="kv"><b>UID</b><span id="r-uid">-</span></div>
+        <div class="kv"><b>Order</b><span id="r-ord">-</span></div>
+      </div>
+
+      <label>ID Token</label>
+      <div class="tok" id="r-tok">-</div>
+      
+      <div class="action-row">
+        <button id="b4" class="sec">Copy Token</button>
+        <button id="b5">Aktivasi Lain</button>
+      </div>
+    </div>
+  </div>
+  
+  <footer>unofficial &middot; reverse engineered &middot; crafted with precision</footer>
+</div>
+
+<script>
+const $ = i => document.getElementById(i)
+
+// Fetch Stats
+fetch('/api/stats').then(r => r.json()).then(j => {
+  $('st-total').textContent = Number(j.total || 0).toLocaleString('id-ID')
+  $('st-today').textContent = Number(j.today || 0).toLocaleString('id-ID')
+}).catch(() => {})
+
+// Modernized Step function to handle complex classes
+const step = n => {
+  for (let i = 1; i <= 3; i++) {
+    $('p' + i).classList.toggle('hide', i !== n)
+    $('n' + i).className = 'step ' + (i < n ? 'done' : (i === n ? 'on' : ''))
+  }
+}
+
+const say = (id, txt, ok) => {
+  const m = $(id)
+  m.textContent = txt
+  m.className = 'msg ' + (ok ? 'ok' : 'err')
+}
+
+const busy = (b, on, t) => { b.disabled = on; if (t) b.textContent = t }
+
+// P1 -> P2 (Kirim Email)
+$('b1').onclick = async () => {
+  const em = $('em').value.trim()
+  if (!em.includes('@')) return say('m1', 'Format email tidak valid', 0)
+  const b = $('b1'); busy(b, true, 'Mengirim...')
+  try {
+    const r = await fetch('/api/send-link', { method: 'POST', headers: {'content-type':'application/json'}, body: JSON.stringify({ email: em }) })
+    const j = await r.json()
+    if (j.success) { 
+      say('m1', 'Link terkirim, periksa kotak masuk/spam', 1); 
+      $('w-em').textContent = em; 
+      setTimeout(() => step(2), 800) 
+    }
+    else say('m1', j.message || 'Gagal mengirim link', 0)
+  } catch { say('m1', 'Server tidak merespons', 0) }
+  busy(b, false); b.textContent = 'Kirim Magic Link'
+}
+
+$('b2').onclick = () => step(1)
+
+// P2 -> P3 (Verifikasi Link)
+$('b3').onclick = async () => {
+  const raw = $('lk').value.trim()
+  if (!raw) return say('m2', 'Link tidak boleh kosong', 0)
+  const b = $('b3'); busy(b, true, 'Memverifikasi...')
+  try {
+    const r = await fetch('/api/verify-link', { method: 'POST', headers: {'content-type':'application/json'}, body: JSON.stringify({ email: $('w-em').textContent, magicLink: raw }) })
+    const j = await r.json()
+    if (j.success) {
+      const d = j.data
+      $('r-em').textContent = d.email
+      $('r-uid').textContent = d.uid
+      $('r-ord').textContent = d.orderId || '-'
+      $('r-tok').textContent = d.idToken
+      window.__tok = d.idToken
+      step(3)
+    } else say('m2', j.message || 'Verifikasi gagal', 0)
+  } catch { say('m2', 'Server tidak merespons', 0) }
+  busy(b, false); b.textContent = 'Aktivasi'
+}
+
+$('b4').onclick = () => { 
+  navigator.clipboard.writeText(window.__tok || ''); 
+  $('b4').textContent = 'Tersalin!';
+  setTimeout(() => $('b4').textContent = 'Copy Token', 2000);
+}
+$('b5').onclick = () => { $('lk').value = ''; $('em').value = ''; step(1); }
+</script>
+</body>
+  </html>
+  
